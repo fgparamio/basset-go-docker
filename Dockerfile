@@ -8,9 +8,7 @@ ADD . $SRC_DIR
 # Build it:
 
 RUN cd $SRC_DIR; go get -v github.com/gorilla/handlers
-RUN go get -v github.com/gorilla/mux
-RUN go get -v github.com/gorilla/context
-RUN go get -v github.com/stretchr/testify/suite
-RUN go build -o basset-back; cp basset-back /app/
+RUN cd $SRC_DIR; go get -v github.com/gorilla/mux
+RUN cd $SRC_DIR; go build -o basset-back; cp basset-back /app/
 ENTRYPOINT ["./basset-back"]
 EXPOSE 4000
