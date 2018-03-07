@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Basset Go Microservice Docker Application
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
@@ -93,3 +94,6 @@ basset-front-reactJs/
 ```
 
 
+=======
+# basset-go-docker
+>>>>>>> ddd6aaac3870d1e77690c7f4afd85171b347f6d9
