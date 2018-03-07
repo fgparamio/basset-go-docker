@@ -67,11 +67,8 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 // Handlers define Entry Points API.  Declare Mux Router
 func Handlers() *mux.Router {
-
 	router := mux.NewRouter()
 	router.HandleFunc("/users", GetUsers).Methods("GET")
-	corsObj := handlers.AllowedOrigins([]string{"*"})
-	handlers.CORS(corsObj)(router)
 	return router
 }
 
@@ -90,5 +87,6 @@ func makeRequest(url string, ch chan<- Page) {
 // Main Function => Run HTTP Server
 func main() {
 	fmt.Println("Server Starting ...")
-	log.Fatal(http.ListenAndServe(":4000", Handlers()))
+	corsObj := handlers.AllowedOrigins([]string{"*"})
+	log.Fatal(http.ListenAndServe(":4000", handlers.CORS(corsObj)(Handlers())))
 }
