@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -9,6 +10,9 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
+
+// APIURL Entry Point for Mux Gorilla Client
+const APIURL = "https://reqres.in/api/users"
 
 // Page is Root element
 type Page struct {
@@ -56,25 +60,35 @@ func ToDTO(page Page) PageDTO {
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	ch := make(chan Page)
 	page := r.URL.Query().Get("page")
-	go makeRequest("https://reqres.in/api/users?page="+page, ch)
+	go makeRequest(APIURL+"?page="+page, ch)
 	json.NewEncoder(w).Encode(ToDTO(<-ch))
 
 }
 
+// Handlers define Entry Points API.  Declare Mux Router
+func Handlers() *mux.Router {
+
+	router := mux.NewRouter()
+	router.HandleFunc("/users", GetUsers).Methods("GET")
+	corsObj := handlers.AllowedOrigins([]string{"*"})
+	handlers.CORS(corsObj)(router)
+	return router
+}
+
+// Make Async Request to url parameter, and set response in a Channel of Page
 func makeRequest(url string, ch chan<- Page) {
 	response, _ := http.Get(url)
 	responseData, parseErr := ioutil.ReadAll(response.Body)
 	if parseErr != nil {
-		log.Fatal(parseErr)
+		log.Fatal("Something is wrong: " + parseErr.Error())
 	}
 	var page Page
 	json.Unmarshal([]byte(responseData), &page)
 	ch <- page
 }
 
+// Main Function => Run HTTP Server
 func main() {
-	router := mux.NewRouter()
-	router.HandleFunc("/users", GetUsers).Methods("GET")
-	corsObj := handlers.AllowedOrigins([]string{"*"})
-	log.Fatal(http.ListenAndServe(":4000", handlers.CORS(corsObj)(router)))
+	fmt.Println("Server Starting ...")
+	log.Fatal(http.ListenAndServe(":4000", Handlers()))
 }
