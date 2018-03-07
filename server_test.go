@@ -1,8 +1,10 @@
 package main_test
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -28,7 +30,7 @@ func TestGetUserWithoutPageOk(t *testing.T) {
 	res, err := http.DefaultClient.Do(request)
 
 	checkResponseCode(t, err, http.StatusOK, res.StatusCode)
-	assert.NotNil(t, res.Body.Read)
+	assert.NotEmpty(t, getDataResponse(res).Users)
 }
 
 func TestGetUserWithPageOk(t *testing.T) {
@@ -37,19 +39,29 @@ func TestGetUserWithPageOk(t *testing.T) {
 	res, err := http.DefaultClient.Do(request)
 
 	checkResponseCode(t, err, http.StatusOK, res.StatusCode)
-	assert.NotNil(t, res.Body.Read)
+	assert.NotEmpty(t, getDataResponse(res).Users)
 }
 
-func TestGetUserWrongParameters(t *testing.T) {
+func TestGetUserWrongParametersReturnFirstPage(t *testing.T) {
 
 	request, err := http.NewRequest("GET", usersUrl+"?foo=1", nil)
 	res, err := http.DefaultClient.Do(request)
-
 	checkResponseCode(t, err, http.StatusOK, res.StatusCode)
-	assert.NotNil(t, res.Body.Read)
+	assert.NotEmpty(t, getDataResponse(res).Users)
+
 }
 
-func TestBadUrlIs400(t *testing.T) {
+func TestGetUserNotExistPageReturnEmpty(t *testing.T) {
+
+	request, err := http.NewRequest("GET", usersUrl+"?page=999999999", nil)
+	res, err := http.DefaultClient.Do(request)
+
+	checkResponseCode(t, err, http.StatusOK, res.StatusCode)
+	assert.Empty(t, getDataResponse(res).Users)
+
+}
+
+func TestBadUrlIsNotFound(t *testing.T) {
 
 	request, err := http.NewRequest("GET", usersUrl+"/foo", nil)
 	res, err := http.DefaultClient.Do(request)
@@ -73,4 +85,11 @@ func checkResponseCode(t *testing.T, err error, expected, actual int) {
 	if expected != actual {
 		t.Errorf("Expected response code %d. Got %d\n", expected, actual)
 	}
+}
+
+func getDataResponse(res *http.Response) main.PageDTO {
+	body, _ := ioutil.ReadAll(res.Body)
+	var page main.PageDTO
+	json.Unmarshal([]byte(body), &page)
+	return page
 }

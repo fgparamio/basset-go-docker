@@ -1,6 +1,5 @@
 # Basset Go Microservice Docker Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 ## Overview
 
@@ -40,7 +39,6 @@ Open [http://localhost:4000/users](http://localhost:4000/users) to view it in th
 
 
 
-
 ### `go test`
 
 Launches the test runner.<br><br>
@@ -52,6 +50,76 @@ Launches the test runner.<br><br>
 To run the benchmarks
 
 
+## API Rest Examples
+
+- Get List Users
+
+```
+GET /users   <== Return first Page
+Accept: application/json
+Content-Type: application/json
+
+
+RESPONSE: HTTP 200 (OK)
+
+
+{
+page: 1,
+perPage: 3,
+total: 12,
+totalPages: 4,
+users: [
+	{
+		ID: 1,
+		name: "George Bluth",
+		avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"
+	},
+	{
+		ID: 2,
+		name: "Janet Weaver",
+		avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg"
+	},
+	{
+		ID: 3,
+		name: "Emma Wong",
+		avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
+	}
+ ]}
+)
+```
+
+```
+GET /users?page=2
+Accept: application/json
+Content-Type: application/json
+
+RESPONSE: HTTP 200 (OK)
+
+{
+page: 2,
+perPage: 3,
+total: 12,
+totalPages: 4,
+users: [
+	{
+		ID: 4,
+		name: "Eve Holt",
+		avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/marcoramires/128.jpg"
+	},
+	{
+		ID: 5,
+		name: "Charles Morris",
+		avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/stephenmoon/128.jpg"
+	},
+	{
+		ID: 6,
+		name: "Tracey Ramos",
+		avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/bigmancho/128.jpg"
+	}
+  ]}
+}
+
+```
 
 
 ## Docker
