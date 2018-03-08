@@ -153,10 +153,11 @@ time docker build -t goBack-docker .
 ## Folder Structure
 
 ```
-basset-front-reactJs/
-  README.md
-  serve.go
-  server_test.go
+basset-go-docker/
+  README.md         <= This file
+  serve.go          <= API Rest implementation
+  server_test.go    <= Test API Application
+  Dockerfile        <= Docker container configuration
  
 ```
 
