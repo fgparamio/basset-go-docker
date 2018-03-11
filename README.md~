@@ -176,7 +176,6 @@ basset-go-docker/
   serve.go          <= API Rest implementation
   serve_test.go     <= Test API Application
   Dockerfile        <= Docker container configuration
-  Makefile	    <= Classic Makefile to run tasks
  
 ```
 
