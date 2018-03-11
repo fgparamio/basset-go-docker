@@ -52,21 +52,32 @@ make run
 
 In the project directory, you can run:
 
-### `go build serve.go; ./serve`
+For Windnows visit: [http://gnuwin32.sourceforge.net/packages/make.htm](http://gnuwin32.sourceforge.net/packages/make.htm)
+
+### `make install`
+
+  Download all dependencies
+
+### `make build`
+
+  Build Basset Go App
+  
+### `make run  or go build serve.go; ./serve(Linux) serve.exe(Windows)`
 
 Run App the app .<br>
 Open [http://localhost:4000/users](http://localhost:4000/users) to view it in the browser.<br><br>
 
-
-### `go test`
+### `make test or go test`
 
 Launches the test runner.<br><br>
-
 
 ### `go test -test.bench .`
 
 To run the benchmarks
 
+### `make clean`
+
+  Clean all dependencies
 
 ## API Rest Examples
 
@@ -157,7 +168,6 @@ docker run --rm -p 5000:5000 server/gobasset
 
 ```
 Surf to http://localhost:5000/ to see it running. <br/><br/>
-
 
 
 
