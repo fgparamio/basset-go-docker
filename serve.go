@@ -72,6 +72,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 // Handlers define Entry Points API.  Declare Mux Router
 func Handlers() *mux.Router {
 	router := mux.NewRouter()
+	router.HandleFunc("/", GetUsers).Methods("GET")
 	router.HandleFunc("/users", GetUsers).Methods("GET")
 	return router
 }
