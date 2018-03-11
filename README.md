@@ -73,7 +73,7 @@ To run the benchmarks
 - Get List Users
 
 ```
-GET /users   <== Return first Page
+GET /users or  GET /  <== Return first Page
 Accept: application/json
 Content-Type: application/json
 
