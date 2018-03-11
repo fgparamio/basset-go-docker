@@ -50,9 +50,9 @@ make run
 	clean 
 
 
-In the project directory, you can run:
-
 For Windnows visit: [http://gnuwin32.sourceforge.net/packages/make.htm](http://gnuwin32.sourceforge.net/packages/make.htm)
+
+In the project directory, you can run:
 
 ### `make install`
 
