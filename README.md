@@ -30,6 +30,26 @@ to view API App in the browser.
 
 ## Available Scripts
 
+### To Run Application
+
+```
+make run 
+
+```
+
+### Makefile options
+
+    all \
+	deps \
+	updatedeps \
+	testdeps \
+	updatetestdeps \
+	build \
+	install \
+	test \
+	clean 
+
+
 In the project directory, you can run:
 
 ### `go build serve.go; ./serve`
@@ -38,11 +58,9 @@ Run App the app .<br>
 Open [http://localhost:4000/users](http://localhost:4000/users) to view it in the browser.<br><br>
 
 
-
 ### `go test`
 
 Launches the test runner.<br><br>
-
 
 
 ### `go test -test.bench .`
@@ -156,7 +174,7 @@ time docker build -t goBack-docker .
 basset-go-docker/
   README.md         <= This file
   serve.go          <= API Rest implementation
-  server_test.go    <= Test API Application
+  serve_test.go     <= Test API Application
   Dockerfile        <= Docker container configuration
  
 ```

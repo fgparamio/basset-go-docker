@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/http/httputil"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -58,11 +59,14 @@ func ToDTO(page Page) PageDTO {
 
 // GetUsers from Chino Urls
 func GetUsers(w http.ResponseWriter, r *http.Request) {
+
+	requestDump, _ := httputil.DumpRequest(r, true)
+	log.Println(string(requestDump))
+
 	ch := make(chan Page)
 	page := r.URL.Query().Get("page")
 	go makeRequest(APIURL+"?page="+page, ch)
 	json.NewEncoder(w).Encode(ToDTO(<-ch))
-
 }
 
 // Handlers define Entry Points API.  Declare Mux Router
